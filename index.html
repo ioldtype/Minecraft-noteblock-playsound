@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PlaySound ピッチ計算</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Minecraft風 Pitch Bend 計算ツール</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>PlaySound ピッチ計算ツール</h1>
+  <div class="container">
+    <h1>Minecraft風 Pitch Bend 計算ツール</h1>
 
-  <label for="base">基準値 (例: 2.0):</label>
-  <input type="number" id="base" step="0.01" placeholder="例: 2.0"><br>
+    <label for="playsound">基準値 (playsound base):</label>
+    <input type="number" id="playsound" step="any" placeholder="例: 1.0" />
 
-  <label for="pitch">Pitch Bend 値:</label>
-  <input type="number" id="pitch" placeholder="例: 683"><br>
+    <label for="pitchbend">Pitch Bend (整数):</label>
+    <input type="number" id="pitchbend" step="1" placeholder="例: 683" />
 
-  <button onclick="calculate()">計算する</button>
-  <button onclick="clearHistory()">履歴をクリア</button>
+    <button id="calculate">計算</button>
+    <button id="clearHistory" class="clear-btn">履歴クリア</button>
 
-  <div id="result-container">
-    <div id="result">結果がここに表示されます</div>
-    <button id="copyBtn" onclick="copyResult()">コピー</button>
+    <div id="result" class="result">ここに結果が表示されます</div>
+
+    <h2>履歴（最大10件）</h2>
+    <ul id="history" class="history-list"></ul>
   </div>
 
-  <h2>履歴</h2>
-  <ul id="history"></ul>
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
