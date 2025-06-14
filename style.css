@@ -158,10 +158,9 @@ button:hover {
 .copy-btn:hover {
   background-color: #66bbff;
   color: #000;
-}
 .footer {
-  position: fixed;
-  bottom: 0;
+  /* position: fixed; ←これを削除 */
+  bottom: 0; /* 不要なので削除 */
   width: 100%;
   text-align: center;
   height: 20px;
@@ -174,14 +173,5 @@ button:hover {
   margin-top: 20px;
 }
 
-.footer a,
-.footer a:visited {
-  color: #00ffff !important;
-  text-decoration: none;
-}
-
-.footer a:hover {
-  text-decoration: underline;
-}
 
 
