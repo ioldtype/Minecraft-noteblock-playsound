@@ -159,8 +159,6 @@ button:hover {
   background-color: #66bbff;
   color: #000;
 .footer {
-  /* position: fixed; ←これを削除 */
-  bottom: 0; /* 不要なので削除 */
   width: 100%;
   text-align: center;
   height: 20px;
@@ -182,6 +180,5 @@ button:hover {
 .footer a:hover {
   text-decoration: underline;
 }
-
 
 
