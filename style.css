@@ -174,7 +174,7 @@ button:hover {
 
 .footer a,
 .footer a:visited {
-  color: #00ffff;
+  color: #00ffff !important;
   text-decoration: none;
 }
 
