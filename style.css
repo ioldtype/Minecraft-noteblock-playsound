@@ -160,15 +160,14 @@ button:hover {
   color: #000;
 }
 .footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   text-align: center;
-  margin-top: 40px;
-  padding: 16px;
-  font-size: 10px;
-  color: var(--text-color-dark);
+  padding: 12px;
   background-color: #111;
   border-top: 2px solid var(--border-color);
+  font-size: 10px;
+  color: var(--text-color-dark);
   box-shadow: 0 -2px 10px #00000088;
 }
-.footer:hover {
-  background-color: #66bbff;
-  color: #45bded
