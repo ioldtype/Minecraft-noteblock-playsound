@@ -168,6 +168,6 @@ button:hover {
   background-color: #111;
   border-top: 2px solid var(--border-color);
   font-size: 10px;
-  color: var(--text-color-dark);
+  color: #00ffff
   box-shadow: 0 -2px 10px #00000088;
 }
