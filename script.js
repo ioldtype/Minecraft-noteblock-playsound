@@ -1,60 +1,41 @@
-// 履歴をローカルストレージから取得
-let history = JSON.parse(localStorage.getItem("playsound_history")) || [];
+document.addEventListener("DOMContentLoaded", function () {
+    const playsoundInput = document.getElementById("playsound");
+    const pitchbendInput = document.getElementById("pitchbend");
+    const calculateButton = document.getElementById("calculate");
+    const resultDisplay = document.getElementById("result");
+    const historyList = document.getElementById("history");
+    const clearHistoryButton = document.getElementById("clearHistory");
 
-function calculate() {
-  let base = parseFloat(document.getElementById("base").value);
-  let pitch = parseFloat(document.getElementById("pitch").value);
+    function calculatePlaysound(basePlaysound, pitchbend) {
+        const n_base = Math.log2(basePlaysound) * 12 + 12;  // 逆算して n を求める
+        const n_adjusted = n_base + pitchbend / 683;  // pitchbend に応じた修正
+        return Math.pow(2, (n_adjusted - 12) / 12);
+    }
 
-  if (isNaN(base) || isNaN(pitch)) {
-    document.getElementById("result").innerText = "⚠️ 数値を入力してください";
-    return;
-  }
+    calculateButton.addEventListener("click", function () {
+        const basePlaysound = parseFloat(playsoundInput.value);
+        const pitchbend = parseInt(pitchbendInput.value, 10);
 
-  // pitch_bend = 683 → 0.529731547 を満たす式
-  let result = base * Math.pow(2, pitch / 288);
-  let resultFormatted = result.toFixed(9);
-  let command = `/playsound minecraft:block.note_block.harp record @p ~ ~ ~ ${resultFormatted}`;
+        if (isNaN(basePlaysound) || isNaN(pitchbend)) {
+            resultDisplay.textContent = "無効な入力です";
+            return;
+        }
 
-  document.getElementById("result").innerText = command;
+        const newPlaysound = calculatePlaysound(basePlaysound, pitchbend);
+        resultDisplay.textContent = `結果: ${newPlaysound.toFixed(9)}`;
 
-  let entry = `基準値: ${base}, Pitch Bend: ${pitch} → ${resultFormatted}`;
-  history.unshift(entry);
-  if (history.length > 10) {
-    history.pop();
-  }
+        // 履歴を追加
+        const historyItem = document.createElement("li");
+        historyItem.textContent = `基準: ${basePlaysound}, Pitchbend: ${pitchbend} → ${newPlaysound.toFixed(9)}`;
+        historyList.appendChild(historyItem);
 
-  saveHistory();
-  updateHistory();
-}
+        // 履歴が10個を超えたら最も古いものを削除
+        if (historyList.children.length > 10) {
+            historyList.removeChild(historyList.children[0]);
+        }
+    });
 
-function saveHistory() {
-  localStorage.setItem("playsound_history", JSON.stringify(history));
-}
-
-function updateHistory() {
-  let historyList = document.getElementById("history");
-  historyList.innerHTML = "";
-  history.forEach(entry => {
-    let li = document.createElement("li");
-    li.textContent = entry;
-    historyList.appendChild(li);
-  });
-}
-
-function clearHistory() {
-  history = [];
-  localStorage.removeItem("playsound_history");
-  updateHistory();
-}
-
-function copyResult() {
-  const text = document.getElementById("result").innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    document.getElementById("copyBtn").innerText = "✅ コピーしました";
-    setTimeout(() => {
-      document.getElementById("copyBtn").innerText = "コピー";
-    }, 1500);
-  });
-}
-
-window.onload = updateHistory;
+    clearHistoryButton.addEventListener("click", function () {
+        historyList.innerHTML = "";
+    });
+});
